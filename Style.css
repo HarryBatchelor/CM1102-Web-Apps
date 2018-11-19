@@ -1,0 +1,25 @@
+body {
+    background-color: lightgrey;
+    font-family: sans-serif;
+}
+h1 {
+  font-size: 20px;
+  text-align: center;
+}
+h2 {
+  text-align: center;
+}
+table{
+  text-align: center;
+}
+p{
+  font-size: 15px;
+}
+a{
+  color: Black;
+}
+
+table.center {
+    margin-left:auto;
+    margin-right:auto;
+  }
