@@ -17,4 +17,8 @@ def Easter(y):
     n = (h - m + r + 90) // 25
     p = (h - m + r + n + 19) % 32
 
+<<<<<<< HEAD
     print(datetime.date(day=p,month=n,year=y))
+=======
+    return datetime.date(day=p,month=n,year=y)
+>>>>>>> 84a4e52eea303e16ab76d9d7e06597b3f05c1f9f
