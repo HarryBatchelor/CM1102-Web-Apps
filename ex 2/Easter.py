@@ -2,6 +2,14 @@
 import cgi, cgitb
 form = cgi.FieldStorage()
 import datetime
+print('Content-Type: text/html; charset=utf-8')
+print('')
+print('<!DOCTYPE html>')
+print('<html>')
+print('<head><title> finding easter python script</title></head>')
+print('<body>')
+print('<p>')
+print('''
 def Easter(y):
     a = y % 19
     b = y // 100
@@ -17,4 +25,7 @@ def Easter(y):
     n = (h - m + r + 90) // 25
     p = (h - m + r + n + 19) % 32
 
-    print(datetime.date(day=p,month=n,year=y))
+    print(datetime.date(day=p,month=n,year=y)) ''')
+print('<p>')
+print('</body>')
+print('</html')
