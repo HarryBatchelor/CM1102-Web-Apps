@@ -25,6 +25,6 @@ print('''
     n = (h - m + r + 90) // 25
     p = (h - m + r + n + 19) % 32
     print(datetime.date(day=p,month=n,year=y)) ''')
-print('<p>')
+print('</p>')
 print('</body>')
 print('</html')
