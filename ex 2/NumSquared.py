@@ -1,8 +1,11 @@
 #! /usr/bin/python3
-import cgi, cgitb
+import cgi
+import cgitb
 import datetime
+cgitb.enable()
 form = cgi.FieldStorage()
-y=form.getvalue('theYear')
+form_y=form.getvalue('theYear')
+y=int(form_y)
 a = y % 19
 b = y // 100
 c = y % 100
@@ -16,7 +19,6 @@ m = (a + 11 * h) // 319
 r = (2 * e + 2 * j - k - h + m + 32) % 7
 n = (h - m + r + 90) // 25
 p = (h - m + r + n + 19) % 32
-return(datetime.date(day=p,month=n,year=y))
 print('Content-Type: text/html; charset=utf-8')
 print('')
 print('<!DOCTYPE html>')
@@ -24,6 +26,6 @@ print('<html>')
 print('<head><title>Finding easter</title></head>')
 print('<body>')
 print('<p>')
-print('The date of easter is %s, %s, %s' %('p','n','y'))
+print('Easter is on %s/%s/%s' % (p,n,y))
 print('</body>')
 print('</html>')
