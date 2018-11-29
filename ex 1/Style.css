@@ -58,3 +58,6 @@ li a:hover:not(.active){
 img{
   align-items: center;
 }
+div {
+  text-align: center;
+}
