@@ -4,6 +4,7 @@ import cgitb
 import datetime
 cgitb.enable()
 form = cgi.FieldStorage()
+form_date=form.getvalue('Date')
 form_y=form.getvalue('theYear')
 y=int(form_y)
 a = y % 19
@@ -47,5 +48,6 @@ print('<head><title>Finding easter</title></head>')
 print('<body>')
 print('<p>')
 print('Easter in %s will be on %s<sup>%s</sup> %s' % (y,p,end,month))
+print(form_date)
 print('</body>')
 print('</html>')
