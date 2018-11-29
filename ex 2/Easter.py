@@ -20,7 +20,11 @@ r = (2 * e + 2 * j - k - h + m + 32) % 7
 n = (h - m + r + 90) // 25
 p = (h - m + r + n + 19) % 32
 
-months = ( Marh, April)
+month = ""
+if n == 3:
+    month = "March"
+else:
+    month = "April"
 st_list = (1,21,31)
 nd_list = (2,22)
 rd_list = (3,23)
@@ -42,6 +46,6 @@ print('<html>')
 print('<head><title>Finding easter</title></head>')
 print('<body>')
 print('<p>')
-print('Easter in %s will be on %s end /%s end' % (y,p,n))
+print('Easter in %s will be on %s<sup>%s</sup> %s' % (y,p,end,month))
 print('</body>')
 print('</html>')
