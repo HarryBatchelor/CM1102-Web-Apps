@@ -20,11 +20,48 @@ m = (a + 11 * h) // 319
 r = (2 * e + 2 * j - k - h + m + 32) % 7
 n = (h - m + r + 90) // 25
 p = (h - m + r + n + 19) % 32
-
-month = ""
-if n == 3:
-    month = "March"
+if form_date == 'Short':
+    print('Content-Type: text/html; charset=utf-8')
+    print('')
+    print('<!DOCTYPE html>')
+    print('<html>')
+    print('<head><title>Finding easter</title></head>')
+    print('<body>')
+    print('<p>')
+    print('Easter will fall on %s/%s/%s' % (p,n,y))
+    print('</body>')
+    print('</html>')
+elif form_date == 'Full':
+    month = ""
+    if n == 3:
+        month = "March"
+    else:
+        month = "April"
+    st_list = (1,21,31)
+    nd_list = (2,22)
+    rd_list = (3,23)
+    th_list = (4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,24,25,26,27,28,29,30)
+    end = ""
+    if p in st_list:
+        end = "st"
+    elif p in nd_list:
+        end = "nd"
+    elif p in rd_list:
+        end = "rd"
+    elif p in th_list:
+        end = "th"
+    print('Content-Type: text/html; charset=utf-8')
+    print('')
+    print('<!DOCTYPE html>')
+    print('<html>')
+    print('<head><title>Finding easter</title></head>')
+    print('<body>')
+    print('<p>')
+    print('Easter in %s will be on %s<sup>%s</sup> %s' % (y,p,end,month))
+    print('</body>')
+    print('</html>')
 else:
+<<<<<<< HEAD
     month = "April"
 st_list = (1,21,31)
 nd_list = (2,22)
@@ -52,3 +89,35 @@ print('Easter in %s will be on %s<sup>%s</sup> %s' % (y,p,end,month))
 print(form_date)
 print('</body>')
 print('</html>')
+=======
+    month = ""
+    if n == 3:
+        month = "March"
+    else:
+        month = "April"
+    st_list = (1,21,31)
+    nd_list = (2,22)
+    rd_list = (3,23)
+    th_list = (4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,24,25,26,27,28,29,30)
+    end = ""
+    if p in st_list:
+        end = "st"
+    elif p in nd_list:
+        end = "nd"
+    elif p in rd_list:
+        end = "rd"
+    elif p in th_list:
+        end = "th"
+    print('Content-Type: text/html; charset=utf-8')
+    print('')
+    print('<!DOCTYPE html>')
+    print('<html>')
+    print('<head><title>Finding easter</title></head>')
+    print('<body>')
+    print('<p>')
+    print('Easter in %s will be on %s<sup>%s</sup> %s' % (y,p,end,month))
+    print('<br/>')
+    print('Easter will fall on %s/%s/%s' % (p,n,y))
+    print('</body>')
+    print('</html>')
+>>>>>>> dddb597d64a52f6e69275a36ee5f8b40e9d1d5d6
