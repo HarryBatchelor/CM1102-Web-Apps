@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Books</h1>
+  {% for book in books %}
+
+  <img src = "{{ url_for('static', filename='img/' + book.image_file) }}">
+
+    <p>{{ book.title }}</p>
+    <p>{{ book.price }}</p>
+    <p>{{ book.author.first_name }}&nbsp{{ book.author.last_name}}</p>
+  {% endfor %}
+{% endblock content %}
