@@ -9,6 +9,6 @@ def home():
     books = Book.query.all()
     return render_template('home.html', books=books)
 
-@app.route("/about")
+@app.route("/account")
 def about():
-    return render_template('about.html', title='About')
+    return render_template('account.html', title='Account')
