@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block content %}
+<img src = "{{ url_for('static', filename='img/' + item.image_file) }}">
+
+  <p>"{{ item.item_name }}" &nbsp Maker: {{ book.maker.name }}</p>
+  <p>Price: {{ item.price }}</p>
+
+{% endblock content %}

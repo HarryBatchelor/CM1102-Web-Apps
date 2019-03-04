@@ -1,7 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-	
+{% extends "layout.html" %}
+{% block content %}
+<h1>Books</h1>
+  {% for item in items %}
 
-    <h1>Hello, World!</h1>
-
-</html>
+  <a href="{{ url_for('item', item_id=item.id) }}"><img src = "{{ url_for('static', filename='img/' + item.image_file) }}"></a>
+    <a href="{{ url_for('item', item_id=item.id) }}">
+      <p>"{{ item.item_name }}" &nbsp Maker: {{ book.maker.name }}</p></a>
+    <p>Price: {{ item.price }}</p>
+  {% endfor %}
+{% endblock content %}

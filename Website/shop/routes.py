@@ -1,14 +1,14 @@
 import os
 from flask import render_template, url_for, request
 from shop import app
-from shop.models import Author, Book
+from shop.models import Maker, Item
 
 @app.route("/")
 @app.route("/home")
 def home():
-    books = Book.query.all()
-    return render_template('home.html', books=books)
+    item = Item.query.all()
+    return render_template('home.html', item=item)
 
 @app.route("/account")
-def about():
+def account():
     return render_template('account.html', title='Account')
