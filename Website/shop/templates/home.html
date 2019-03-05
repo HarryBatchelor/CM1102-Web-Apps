@@ -1,11 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Books</h1>
+<h1>SHOP</h1>
   {% for item in items %}
 
   <a href="{{ url_for('item', item_id=item.id) }}"><img src = "{{ url_for('static', filename='img/' + item.image_file) }}"></a>
-    <a href="{{ url_for('item', item_id=item.id) }}">
-      <p>"{{ item.item_name }}" &nbsp Maker: {{ book.maker.name }}</p></a>
-    <p>Price: {{ item.price }}</p>
+    <a href="{{ url_for('item', item_id=item.id) }}"></a>
+
+      <p>{{ item.item_name }} </p>
+      <p>Maker: {{ item.maker.Name }}</p>
+    <p>Price:£{{ item.price }}</p>
   {% endfor %}
 {% endblock content %}
