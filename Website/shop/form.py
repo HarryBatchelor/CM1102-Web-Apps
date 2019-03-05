@@ -1,15 +1,13 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
 
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=15)])
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password',
-                                     validators=[DataRequired(), EqualTo('password')])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired(), Regexp('^.{6,8}$', message='Your password should\ be between 6 and 8 characters long')])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
 class LoginForm(FlaskForm):
@@ -17,7 +15,12 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
-# def validate_email(self, email):
-#     user = User.query.filter_by(email=email.data).first()
-#     if user:
-#         rais ValidationError('This email is already registered.\ please choose a differnt one')
+def validate_email(self, email):
+    user = User.query.filter_by(email=email.data).first()
+    if user:
+        raise ValidationError('This email is already registered.\ please choose a differnt one')
+
+def validate_Username(self, username):
+    user = User.Query.filter_by(username=username.data).first()
+    if user:
+        raise ValidationError('This username is alreadt taken\ Please choose a differnt one')

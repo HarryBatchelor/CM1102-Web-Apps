@@ -1,5 +1,5 @@
 import os
-from flask import render_template, url_for, request, redirect, flash
+from flask import render_template, url_for, request, redirect, flash, session
 from shop import app, db
 from shop.models import Maker, Item, User
 from shop.form import RegistrationForm, LoginForm
@@ -28,7 +28,7 @@ def item(item_id):
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
-    if request.method == 'POST':
+    if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -38,14 +38,61 @@ def register():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if request.method == 'POST':
+    if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user is not None and user.verify_password(form.password.data):
             login_user(user)
+            flash('You are now logged in.')
             return redirect(url_for('home'))
+        flash('Invalid username or password.')
+        return render_template('login.html', form=form)
     return render_template('login.html', title='Login', form=form)
 
 @app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route("/add_to_cart/<int:item_id>")
+def add_to_cart(item_id):
+    if "cart" not in session:
+        session["cart"] = []
+    session["cart"].append(item_id)
+    flash("The item has been added to your basket")
+    return redirect("/cart")
+
+@app.route("/cart", methods=['GET', 'POST'])
+def cart_display():
+    if "cart" not in session:
+        flash('There is nothing in your barsket.')
+        return render_template("cart.html", display_cart = {}, total = 0)
+    else:
+        products = session["cart"]
+        cart = {}
+
+        total_price = 0
+        total_quantity = 0
+        for product in products:
+            item = Item.query.get_or_404(product)
+
+            total_price += item.price
+            if item.id in cart:
+                cart[item.id]["quantity"] += 1
+            else:
+                cart[item.id] = {"quantity":1, "Product name": item.item_name, "price":item.price}
+            total_quantity = sum(product['quantity'] for product in cart.values())
+
+
+        return render_template("cart.html", title='Your Shopping Barsket', display_cart = cart, total = total_price, total_quantity = total_quantity)
+
+    return render_template('cart.html')
+
+@app.route("/delete_item/<int:item_id>", methods=['GET', 'POST'])
+def delete_item(item_id):
+    if "cart" not in session:
+        session["cart"] = []
+    session["cart"].remove(item_id)
+
+    flash("The item has been removed from your barsket")
+    session.modified = True
+    return redirect("/cart")
