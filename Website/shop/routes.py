@@ -23,7 +23,7 @@ def checkout():
 @app.route("/item/<int:item_id>")
 def item(item_id):
     item = Item.query.get_or_404(item_id)
-    return render_template('item.html', title=item.title, item=item)
+    return render_template('item.html', title=item.item_name, item=item)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
