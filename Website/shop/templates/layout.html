@@ -4,12 +4,20 @@
 <head>
   <meta charset="utf-8">
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-  <title>My Wonderful Site</title>
+  <title>Online Store</title>
 </head>
 
 <body>
   <div id="header">
-    <a href="{{ url_for('home') }}" class="header">Home</a>&nbsp<a href="{{ url_for('account') }}" class="header">Account</a>&nbsp<a href="{{ url_for('checkout') }}" class="header">Shopping Basket</a>
+    <a href="{{ url_for('home') }}" class="header">Home</a>&nbsp|
+    <a href="{{ url_for('account') }}" class="header">Account</a>&nbsp|
+    {% if current_user.is_authenticated %}
+    Hello, {{ current_user.username }}!
+    <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>&nbsp|
+    {% else %}
+    Hello, Guest! &nbsp| <a href="{{ url_for('login') }}">Login&nbsp;</a>
+    or <a href="{{ url_for('register') }}">Register</a>&nbsp|
+    {% endif %}
   </div>
 
   <div id="content">
