@@ -18,13 +18,13 @@
   <div id="header">
     <a href="{{ url_for('home') }}" class="header">Home</a>&nbsp|
     <a href="{{ url_for('account') }}" class="header">Account</a>&nbsp|
+    <a href="{{ url_for('cart_display') }}" class="header">Shopping Basket</a>&nbsp|
     {% if current_user.is_authenticated %}
     Hello, {{ current_user.username }}!
     <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>&nbsp|
     {% else %}
     Hello, Guest! &nbsp| <a href="{{ url_for('login') }}">Login&nbsp;</a>
     or <a href="{{ url_for('register') }}">Register</a>&nbsp|
-    <a href="{{ url_for('home') }}" class="header">Shopping Basket</a>&nbsp|
     {% endif %}
   </div>
 
