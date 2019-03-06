@@ -41,3 +41,9 @@ tr{
 th{
   color: #ffffff
 }
+
+#Banner{
+  font-size: 25px;
+  background-color: #5c00e6;
+  text-align: center;
+}

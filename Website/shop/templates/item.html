@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
+<p><b>{{ item.item_name }}</b></p>
 <img src = "{{ url_for('static', filename='img/' + item.image_file) }}">
 
-  <p>{{ item.item_name }}</p>
+
   <p>Maker: {{ item.maker.Name }}</p>
   <p>Price: {{ item.price }}</p>
   <p>Stock: {{item.stock_level}}</p>

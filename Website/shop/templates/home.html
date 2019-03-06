@@ -3,12 +3,14 @@
 <h1>SHOP</h1>
   {% for item in items %}
 
+<p><b> {{ item.item_name }}</b> </p>
   <a href="{{ url_for('item', item_id=item.id) }}"><img src = "{{ url_for('static', filename='img/' + item.image_file) }}"></a>
     <a href="{{ url_for('item', item_id=item.id) }}"></a>
-
-      <p>{{ item.item_name }} </p>
       <p>Producer: {{ item.maker.Name }}</p>
       <p>Description: {{item.description}}</p>
     <p>Price:£{{ item.price }}</p>
+    <p>
+      <a class="" href="/add_to_cart{{item_id}}">Add to Cart</a>
+      </p>
   {% endfor %}
 {% endblock content %}

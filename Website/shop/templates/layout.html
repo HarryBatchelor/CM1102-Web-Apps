@@ -8,6 +8,13 @@
 </head>
 
 <body>
+<div id="Banner">
+  <b><p>
+    Welcome to Online Shop
+  </p>
+  <p>Contact us at: 07123456789</p>
+</b>
+</div>
   <div id="header">
     <a href="{{ url_for('home') }}" class="header">Home</a>&nbsp|
     <a href="{{ url_for('account') }}" class="header">Account</a>&nbsp|
@@ -17,6 +24,7 @@
     {% else %}
     Hello, Guest! &nbsp| <a href="{{ url_for('login') }}">Login&nbsp;</a>
     or <a href="{{ url_for('register') }}">Register</a>&nbsp|
+    <a href="{{ url_for('home') }}" class="header">Shopping Basket</a>&nbsp|
     {% endif %}
   </div>
 
