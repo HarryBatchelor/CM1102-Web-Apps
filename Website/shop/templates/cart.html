@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>{{ item_name }}</h1>
+<h1>{{ title }}</h1>
 
 <table class="">
   <tr><th>Product</th>  <th>Quantity </th>  <th>Price </th> <th>Total </th></tr>
@@ -8,7 +8,7 @@
   {% for key, value in display_cart.items() %}
   <tr>
     <!-- <td>{{ key }}</td> -->
-    <td>{{ value["price"] }}</td>
+    <td>{{ value["Product name"] }}</td>
     <td>{{ value["quantity"] }}</td>
     <td>£{{ value["price"] }}</td>
     <td>£{{ (value["quantity"] * value["price"]) }}</td>
@@ -24,5 +24,8 @@
 </table>
 <h3>Total: £{{ total }} </h3>
 <h3>Number of items: {{ total_quantity }} </h3>
+<form>
+
+  </form>
 
 {% endblock content %}

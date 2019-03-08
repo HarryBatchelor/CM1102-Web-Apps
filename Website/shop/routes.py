@@ -64,7 +64,7 @@ def add_to_cart(item_id):
 @app.route("/cart", methods=['GET', 'POST'])
 def cart_display():
     if "cart" not in session:
-        flash('There is nothing in your barsket.')
+        flash('There is nothing in your basket.')
         return render_template("cart.html", display_cart = {}, total = 0)
     else:
         products = session["cart"]
@@ -83,7 +83,7 @@ def cart_display():
             total_quantity = sum(product['quantity'] for product in cart.values())
 
 
-        return render_template("cart.html", title='Your Shopping Barsket', display_cart = cart, total = total_price, total_quantity = total_quantity)
+        return render_template("cart.html", title= "Your basket", display_cart = cart, total = total_price, total_quantity = total_quantity)
 
     return render_template('cart.html')
 
@@ -93,6 +93,6 @@ def delete_item(item_id):
         session["cart"] = []
     session["cart"].remove(item_id)
 
-    flash("The item has been removed from your barsket")
+    flash("The item has been removed from your basket")
     session.modified = True
     return redirect("/cart")

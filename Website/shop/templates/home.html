@@ -7,10 +7,10 @@
   <a href="{{ url_for('item', item_id=item.id) }}"><img src = "{{ url_for('static', filename='img/' + item.image_file) }}"></a>
     <a href="{{ url_for('item', item_id=item.id) }}"></a>
       <p>Producer: {{ item.maker.Name }}</p>
-      <p>Description: {{item.description}}</p>
+      <!-- <p>Description: {{item.description}}</p> -->
     <p>Price:£{{ item.price }}</p>
     <p>
-      <a class="" href="/add_to_cart{{item_id}}">Add to Cart</a>
+      <a class="" href="/add_to_cart/{{item.id}}">Add to Cart</a>
       </p>
   {% endfor %}
 {% endblock content %}
