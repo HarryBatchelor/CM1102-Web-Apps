@@ -22,9 +22,14 @@
     Hello, {{ current_user.username }}!
     <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>&nbsp|
     {% else %}
-    Hello, Guest! &nbsp| <a href="{{ url_for('login') }}">Login&nbsp;</a>
-    or <a href="{{ url_for('register') }}">Register</a>&nbsp|
-    {% endif %}
+    Hello, Guest! &nbsp| <a href="{{ url_for('login') }}">Login&nbsp;</a>or <a href="{{ url_for('register') }}">Register</a>
+    <div class="search-container">
+    <form>
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  {% endif %}
   </div>
 
   <div id="content">
@@ -44,6 +49,8 @@
       </ul>
       {%endif%}
       {%endwith%}
+</div>
+  
 </div>
 
 </body>

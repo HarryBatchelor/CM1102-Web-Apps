@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
-<form accept="">
+<form action="finished">
   <fieldset>
   <legend>Card details:</legend>
   Card Number:<br>
-  <input type="text" name="CardNumber">
+  <input type="text" maxlength="16"  name="CardNumber" required>
   <br>
   Expiration date (mm/yy):<br>
-  <input type="text" name="Date" value="mm/yy">
+  <input type="month" maxlength="5" name="date"  placeholder="mm/yy" required>
   <br>
   Security code:<br>
-  <input type="text" name="Security">
+  <input type="text" maxlength="3"  name="Security" placeholder="3 digits on back of the card" required>
   <br><br>
   <input type="submit" value="Submit">
   </fieldset>
