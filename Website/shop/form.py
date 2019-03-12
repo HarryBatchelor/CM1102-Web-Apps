@@ -15,6 +15,12 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
+class CheckoutForm(FlaskForm):
+    Name_on_card = StringField('Name on Card', validators=[DataRequired(), Length(min=3, max=100)])
+    Card_number = StringField('Card Number', validators=[DataRequired(), Length(min=16, max=16)])
+    Date = StringField('Expiration date(mm/yyyy)', validators=[DataRequired(), Length(min=7, max=7)])
+    Security_num = StringField('Secuity Number', validators=[DataRequired(), Length(min=3, max=3)])
+
 def validate_email(self, email):
     user = User.query.filter_by(email=email.data).first()
     if user:

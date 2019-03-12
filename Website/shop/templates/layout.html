@@ -17,7 +17,6 @@
 </div>
   <div id="header">
     <a href="{{ url_for('home') }}" class="header">Home</a>&nbsp|
-    <!-- <a href="{{ url_for('account') }}" class="header">Account</a>&nbsp| -->
     <a href="{{ url_for('cart_display') }}" class="header">Shopping Basket</a>&nbsp|
     {% if current_user.is_authenticated %}
     Hello, {{ current_user.username }}!

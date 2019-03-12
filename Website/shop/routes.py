@@ -18,6 +18,9 @@ def account():
 
 @app.route("/checkout")
 def checkout():
+    form = CheckoutForm()
+    if form.validate_on_submit():
+        return redirect(url_for('Finished'))
     return render_template('checkout.html', title='Checkout')
 
 @app.route("/item/<int:item_id>")
