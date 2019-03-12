@@ -1,35 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
-
-<form method="POST" action="">
-  {{ form.hidden_tag() }}
-  <div class="">
-    {{ form.Name_on_card.label }} {{ form.Name_on_card }}
-    {% for error in form.Name_on_card.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-  </div>
-  <div class="">
-    {{ form.Card_number.label }} {{ form.Card_number }}
-    {% for error in form.Card_number.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-  </div>
-  <div class="">
-    {{ form.Date.label }} {{ form.Date}}
-    {% for error in form.Date.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-  </div>
-  <div class="">
-    {{ form.Security_num.label }} {{ form.Security_num}}
-    {% for error in form.Security_num.errors %}
-    <span style="color: green;">[{{ error }}]</span>
-    {% endfor %}
-  </div>
-  <div class="">
-    {{ form.submit() }}
-  </div>
+<form accept="">
+  <fieldset>
+  <legend>Card details:</legend>
+  Card Number:<br>
+  <input type="text" name="CardNumber">
+  <br>
+  Expiration date (mm/yy):<br>
+  <input type="text" name="Date" value="mm/yy">
+  <br>
+  Security code:<br>
+  <input type="text" name="Security">
+  <br><br>
+  <input type="submit" value="Submit">
+  </fieldset>
+  
+  
 </form>
-
 {% endblock content %}
