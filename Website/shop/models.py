@@ -16,7 +16,6 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     item_name = db.Column(db.String(50),nullable=False)
     description = db.Column(db.String(120), nullable=False)
-    #publication_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     price = db.Column(db.Numeric(10,2), nullable=False)
     image_file = db.Column(db.String(30), nullable=False, default='default.jpg')
     stock_level = db.Column(db.Integer, nullable=False)

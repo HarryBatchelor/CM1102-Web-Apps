@@ -6,24 +6,27 @@ body {
 h1 {
   padding-left: 20px;
   font-family:sans-serif;
-   color:#ffffff; 
+   color:#ffffff;
 }
 
+h4{
+  font-size: 25px;
+  text-align: center;
+  background-color: #5c00e6;
+  text-decoration-color: #000000;
+}
 a {
   text-decoration:none;
   color: #ffffff
 }
 
-a:hover {
-  /*color:#77b6e2;*/
-  /* color:#cc3300; */
-}
 
 #header {
     padding:10px 100px;
     font-size:18px;
     overflow:auto;
     background-color: #5c00e6;
+
 }
 
 p {
@@ -59,7 +62,7 @@ h3{
 }
 
 .topnav a {
-  float: left;
+  float: center;
   display: block;
   color: black;
   text-align: center;
@@ -117,5 +120,5 @@ h3{
     padding: 14px;
   }
   .topnav input[type=text] {
-    border: 1px solid #ccc;  
+    border: 1px solid #ccc;
   }
