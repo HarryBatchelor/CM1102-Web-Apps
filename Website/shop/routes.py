@@ -2,33 +2,27 @@ import os
 from flask import render_template, url_for, request, redirect, flash, session
 from shop import app, db
 from shop.models import Maker, Item, User
-from shop.form import RegistrationForm, LoginForm, ItemSearchForm
+from shop.form import RegistrationForm, LoginForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 
 @app.route("/")
 @app.route("/home")
 def home():
-    form = ItemSearchForm()
-    search = ItemSearchForm(request.form)
-    if request.method == 'POST':
-        items = []
-        search_string = search.data['search']
-        if search.data['search'] == '':
-            items = Item.query.all()
-            return render_template('home.html', items=items, form=form)
-        else:
-            items = Item.query.filter(Item.item_name==search_string)
-            return render_template('home.html', items=items, form=form)
-        if not items:
-            flask('No results found!')
-            return redirect('/')
-        else:
-            return render_template('home.html', items=items, form=form)
+    if request.method =='POST':
+        sorting_post = request.form["sorting"]
+        split_sorting_post = sorting_post_split("_")
+        split_sorting_post[0]
+        method = split_sorting_post[1]
+        items = db.engine.execute("SELECT * FROM item ORDER BY" + str(sort) + " " + str(method))
+        return render_template('home.html', items=items)
+    items = Item.query.all()
+    return render_template('home.html', items=items, title='My Shop')
 
 @app.route("/finished")
 def finished():
-    session["cart"].clear() 
+    session["cart"].clear()
+    session["wishlist"].clear()
     return render_template('finished.html', title='Thank you')
 
 @app.route("/checkout")
@@ -102,6 +96,38 @@ def cart_display():
 
     return render_template('cart.html')
 
+@app.route("/add_to_wishlist/<int:item_id>")
+def add_to_wishlist(item_id):
+    if "wishlist" not in session:
+        session["wishlist"] = []
+    session["wishlist"].append(item_id)
+    flash("The item has been added to your wishlist")
+    return redirect("/wishlist")
+
+@app.route("/wishlist", methods=['GET', 'POST'])
+def wishlist_display():
+    if "wishlist" not in session:
+        flash('There is nothing in your wishlist.')
+        return render_template("wishlist.html", display_wishlist = {}, total = 0)
+    else:
+        products = session["wishlist"]
+        wishlist = {}
+
+        total_price = 0
+        total_quantity = 0
+        for product in products:
+            item = Item.query.get_or_404(product)
+
+            total_price += item.price
+            if item.id in wishlist:
+                wishlist[item.id]["quantity"] += 1
+            else:
+                wishlist[item.id] = {"quantity":1, "Product name": item.item_name, "price":item.price}
+            total_quantity = sum(product['quantity'] for product in wishlist.values())
+
+
+        return render_template("wishlist.html", title= "Your basket", display_wishlist = wishlist, total = total_price, total_quantity = total_quantity)
+
 @app.route("/delete_item/<int:item_id>", methods=['GET', 'POST'])
 def delete_item(item_id):
     if "cart" not in session:
@@ -111,3 +137,13 @@ def delete_item(item_id):
     flash("The item has been removed from your basket")
     session.modified = True
     return redirect("/cart")
+
+@app.route("/delete_item_wishlist/<int:item_id>", methods=['GET', 'POST'])
+def delete_item_wishlist(item_id):
+    if "wishlist" not in session:
+        session["wishlist"] = []
+    session["wishlist"].remove(item_id)
+
+    flash("The item has been removed from your wishlist")
+    session.modified = True
+    return redirect("/wishlist")
