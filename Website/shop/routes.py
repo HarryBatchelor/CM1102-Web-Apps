@@ -11,17 +11,14 @@ from flask_login import login_user, current_user, logout_user, login_required
 def home():
     form = SearchForm()
     search = SearchForm(request.form)
-    search_string=''
-    items = ''
+    search_string = ""
     if request.method == 'POST':
         search_string = search.data['search']
-        # Changed this and made the form in the template have a method of "POST" as the default is "GET"
-        # the below line just matches the search term by comparing it with wildcards to the names in the database
-        items = Item.query.filter(Item.item_name.like("%" + search_string + "%")).all()
-        return render_template("home.html", items=items, form=form)
+        items = Item.query.filter(Item.item_name == search_string)
+        return render_template('home.html', items=items, form=form)
     else:
         items = Item.query.all()
-        return render_template("home.html", items=items, form=form)
+        return render_template('home.html', items=items, form=form)
 
 @app.route("/finished")
 def finished():
