@@ -11,6 +11,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 def home():
     form = SearchForm()
     search = SearchForm(request.form)
+    search_string=''
     if request.method == 'POST':
         items = []
         search_string = search.data['search']
@@ -18,7 +19,7 @@ def home():
             items = Item.query.all()
             return render_template('home.html', items=items, form=form)
     else:
-        items = Item.query.filter(Item.item_name==search_string)
+        items = Item.query.filter(Item.item_name == search_string)
         return render_template('home.html', items=items, form=form)
     if not items:
         flash('No results found')
