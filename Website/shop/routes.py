@@ -6,21 +6,21 @@ from shop.form import RegistrationForm, LoginForm, SearchForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 
-@app.route("/")
-@app.route("/home")
+@app.route("/", methods=['GET', 'POST'])
+@app.route("/home", methods=['GET', 'POST'])
 def home():
     form = SearchForm()
     search = SearchForm(request.form)
     search_string=''
     if request.method == 'POST':
+        items = Item.query.filter(Item.item_name == search_string)
+        return render_template('home.html', items=items, form=form)
+    else:
         items = []
         search_string = search.data['search']
         if search.data['search'] == '':
             items = Item.query.all()
             return render_template('home.html', items=items, form=form)
-    else:
-        items = Item.query.filter(Item.item_name == search_string)
-        return render_template('home.html', items=items, form=form)
     if not items:
         flash('No results found')
         return redirect('/')
@@ -67,6 +67,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+    session['cart'].clear()
     logout_user()
     return redirect(url_for('home'))
 
