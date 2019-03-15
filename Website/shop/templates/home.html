@@ -1,13 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>SHOP</h1>
+
+
   {% for item in items %}
 
 <p><b> {{ item.item_name }}</b> </p>
   <a href="{{ url_for('item', item_id=item.id) }}"><img src = "{{ url_for('static', filename='img/' + item.image_file) }}"></a>
     <a href="{{ url_for('item', item_id=item.id) }}"></a>
       <p>Producer: {{ item.maker.Name }}</p>
-      
+
     <p>Price:£{{ item.price }}</p>
     <p>
       <a class="" href="/add_to_cart/{{item.id}}">Add to Cart</a>

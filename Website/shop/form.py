@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
 
 
@@ -15,6 +15,11 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
 
     submit = SubmitField('Login')
+
+class SearchForm(FlaskForm):
+    choices = [('Grill', 'Grill'),('Watch', 'Watch'),('Pen', 'Pen'),('AirPod', 'Airpod'),('USB', 'USB')]
+    select = SelectField('Search item:', choices=choices)
+    search = StringField('')
 
 def validate_email(self, email):
     user = User.query.filter_by(email=email.data).first()
