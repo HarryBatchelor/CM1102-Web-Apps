@@ -1,6 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>SHOP</h1>
+
+<p>Sort by:</p>
+<div class="dropdown">
+  <button class="dropbtn">Dropdown</button>
+  <div class="dropdown-content">
+  <a href="checkout">Price: Lowest First</a>
+  <a href="wishlist">Price: Highest First</a>
+  </div>
+</div>
 <form method="POST" action="">
   {% for item in items %}
 <p><b> {{ item.item_name }}</b> </p>
