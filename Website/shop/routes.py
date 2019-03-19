@@ -11,21 +11,12 @@ from flask_login import login_user, current_user, logout_user, login_required
 def home():
     if request.method == 'POST':
         sorting_post = request.form["sorting"]
-<<<<<<< HEAD
-        split_sorting_post = sorting_post.split("-")
-        sort = split_sorting_post[0]
-        method = split_sorting_post[1]
-        items = db.engine.execute("SELECT * FROM item ORDER BY " + str(sort) + " " + str(method))
-        return render_template('home.html', items=items)
-    items = db.engine.execute("SELECT * FROM item LIMIT 20")
-=======
         split_sorting_post = sorting_post.split("_")
         sort = split_sorting_post[0]
         method = split_sorting_post[1]
         items = db.engine.execute("SELECT * FROM item ORDER BY " + str(sort) + " " + str(method))
         return render_template('home.html', itmes=items)
     items = Item.query.limit(20).all()
->>>>>>> 26f633d6a87c1363bf002263a50d4de36b6405a9
     return render_template('home.html', items=items)
 @app.route("/search", methods=['GET', 'POST'])
 def search():
@@ -40,44 +31,6 @@ def search():
         items = Item.query.all()
         return render_template('home.html', items=items, form=form)
     return render_template('home.html', items=items, form=form)
-<<<<<<< HEAD
-=======
-# @app.route("/HightoLow", methods=['GET', 'POST'])
-# def High_to_Low():
-#     form = SearchForm()
-#     search = SearchForm(request.form)
-#     search_string = ""
-#     if request.method == 'POST':
-#         sorting_post = request.form["sorting"]
-#         split_sorting_post = sorting_post.split("_")
-#         sort = split_sorting_post[0]
-#         metod = split_sorting_post[1]
-#         items = db.engin.execute("SELECT * FROM item ORDER BY" + str(sort) + "" + str(method))
-#         return render_template('home.html', itmes=items)
-#     items = Item.query.limit(20).all()
-#     if request.method == 'POST':
-#         search_string = search.data['search']
-#         items = Item.query.filter(Item.item_name == search_string)
-#         return render_template('home.html', items=items, form=form)
-#     else:
-#         items = Item.query.all()
-#         return render_template('home.html', items=items, form=form)
-#
-#     return render_template('home.html', items=items, form=form, title="Home Page")
-# @app.route("/LowtoHigh", methods=['GET', 'POST'])
-# def Low_to_High():
-#     form = SearchForm()
-#     search = SearchForm(request.form)
-#     items = Item.query.order_by(Item.price)
-#     search_string = ""
-#     if request.method == 'POST':
-#         search_string = search.data['search']
-#         items = Item.query.filter(Item.item_name == search_string)
-#         return render_template('home.html', items=items, form=form)
-#     else:
-#         items = Item.query.all()
-#         return render_template('home.html', items=items, form=form)
->>>>>>> 26f633d6a87c1363bf002263a50d4de36b6405a9
 
 @app.route("/finished")
 def finished():
