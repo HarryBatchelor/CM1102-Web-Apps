@@ -2,14 +2,19 @@
 {% block content %}
 <h1>SHOP</h1>
 
-<p>Sort by:</p>
-<div class="dropdown">
-  <button class="dropbtn">Dropdown</button>
-  <div class="dropdown-content">
-  <a href="checkout">Price: Lowest First</a>
-  <a href="wishlist">Price: Highest First</a>
-  </div>
+<div class="sort_form">
+  <form id="sorting_form" method="POST">
+    <select name="sorting" id="sorting" class="sorting">
+      <option value="none" selected="selected" disabled="disabled" hidden="hidden">Select Item Sorting</option>
+      <option value="price_desc">Price Descending</option>
+      <option value="price_asc">Price Ascending</option>
+      <option value="name_desc">Name Descending</option>
+      <option value="name_asc">Name Ascending</option>
+    </select>
+    <input type="submit" id="sorting_submit" value="Sort">
+  </form>
 </div>
+
 <form method="POST" action="">
   {% for item in items %}
 <p><b> {{ item.item_name }}</b> </p>

@@ -24,8 +24,29 @@ def home():
 def High_to_Low():
     form = SearchForm()
     search = SearchForm(request.form)
+    search_string = ""
+    if request.method == 'POST':
+        sorting_post = request.form["sorting"]
+        split_sorting_post = sorting_post.split("_")
+        sort = split_sorting_post[0]
+        metod = split_sorting_post[1]
+        items = db.engin.execute("SELECT * FROM item ORDER BY" + str(sort) + "" + str(method))
+        return render_template('home.html', itmes=items)
+    items = Item.query.limit(20).all()
+    if request.method == 'POST':
+        search_string = search.data['search']
+        items = Item.query.filter(Item.item_name == search_string)
+        return render_template('home.html', items=items, form=form)
+    else:
+        items = Item.query.all()
+        return render_template('home.html', items=items, form=form)
+
+    return render_template('home.html', items=items, form=form, title="Home Page")
+@app.route("/LowtoHigh", methods=['GET', 'POST'])
+def Low_to_High():
+    form = SearchForm()
+    search = SearchForm(request.form)
     items = Item.query.order_by(Item.price)
-    items = items[::-1]
     search_string = ""
     if request.method == 'POST':
         search_string = search.data['search']
