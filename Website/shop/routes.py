@@ -9,6 +9,17 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
 def home():
+    if request.method == 'POST':
+        sorting_post = request.form["sorting"]
+        split_sorting_post = sorting_post.split("-")
+        sort = split_sorting_post[0]
+        method = split_sorting_post[1]
+        items = db.engine.execute("SELECT * FROM item ORDER BY " + str(sort) + " " + str(method))
+        return render_template('home.html', items=items)
+    items = db.engine.execute("SELECT * FROM item LIMIT 20")
+    return render_template('home.html', items=items)
+@app.route("/search", methods=['GET', 'POST'])
+def search():
     form = SearchForm()
     search = SearchForm(request.form)
     search_string = ""
@@ -19,21 +30,7 @@ def home():
     else:
         items = Item.query.all()
         return render_template('home.html', items=items, form=form)
-
-@app.route("/HightoLow", methods=['GET', 'POST'])
-def High_to_Low():
-    form = SearchForm()
-    search = SearchForm(request.form)
-    items = Item.query.order_by(Item.price)
-    items = items[::-1]
-    search_string = ""
-    if request.method == 'POST':
-        search_string = search.data['search']
-        items = Item.query.filter(Item.item_name == search_string)
-        return render_template('home.html', items=items, form=form)
-    else:
-        items = Item.query.all()
-        return render_template('home.html', items=items, form=form)
+    return render_template('home.html', items=items, form=form)
 
 @app.route("/finished")
 def finished():
