@@ -16,10 +16,11 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Login')
 
-class SearchForm(FlaskForm):
-    choices = [('Grill', 'Grill'),('Watch', 'Watch'),('Pen', 'Pen'),('AirPod', 'Airpod'),('USB', 'USB')]
-    select = SelectField('Search item:', choices=choices)
-    search = StringField('')
+class ReviewForm(FlaskForm):
+	user_name = StringField('Username', validators=[DataRequired()])
+	body = StringField('Review', validators=[DataRequired()])
+	submit = SubmitField('Submit')
+
 
 def validate_email(self, email):
     user = User.query.filter_by(email=email.data).first()

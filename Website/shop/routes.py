@@ -1,8 +1,8 @@
 import os
 from flask import render_template, url_for, request, redirect, flash, session
 from shop import app, db
-from shop.models import Maker, Item, User
-from shop.form import RegistrationForm, LoginForm, SearchForm
+from shop.models import Maker, Item, User, Review
+from shop.form import RegistrationForm, LoginForm, ReviewForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -18,19 +18,6 @@ def home():
         return render_template('home.html', items=items)
     items = db.engine.execute("SELECT * FROM item LIMIT 20")
     return render_template('home.html', items=items)
-@app.route("/search", methods=['GET', 'POST'])
-def search():
-    form = SearchForm()
-    search = SearchForm(request.form)
-    search_string = ""
-    if request.method == 'POST':
-        search_string = search.data['search']
-        items = Item.query.filter(Item.item_name == search_string)
-        return render_template('home.html', items=items, form=form)
-    else:
-        items = Item.query.all()
-        return render_template('home.html', items=items, form=form)
-    return render_template('home.html', items=items, form=form)
 
 @app.route("/finished")
 def finished():
@@ -42,10 +29,18 @@ def finished():
 def checkout():
     return render_template('checkout.html', title='Checkout')
 
-@app.route("/item/<int:item_id>")
+@app.route("/item/<int:item_id>", methods=['GET', 'POST'])
 def item(item_id):
     item = Item.query.get_or_404(item_id)
-    return render_template('item.html', title=item.item_name, item=item)
+    reviews = Review.query.all()
+    form = ReviewForm()
+    if form.validate_on_submit():
+        review = Review(user_name=form.user_name.data, body=form.body.data, item_id = item.id)
+        db.session.add(review)
+        db.session.commit()
+        flash('Thanks for leaving a review!')
+        return redirect(url_for('item', item_id = item.id))
+    return render_template('item.html', title=item.item_name, item=item, review=reviews, form=form)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
