@@ -26,13 +26,13 @@
     {{form.submit()}}
   </div>
   </form>
-{% for item in review %}
-{% if item.item_id == item.id%}
+  {% for item in review %}
+  {% if item.item_id == item.id%}
 
 <div class="reviewcontainer" style="padding-top: 10px; padding-left: 5px;">
     <h6>User: {{item.user_name}}</h6>
     <h6>Review: {{item.body}}</h6>
 </div>
-{%endif%}
-{%endfor%}
+  {%endif%}
+  {%endfor%}
 {% endblock content %}
